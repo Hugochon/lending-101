@@ -13,5 +13,6 @@ interface IExerciceSolution
 	function doAFlashLoan() external;
 
 	function repayFlashLoan() external;
+	
 }
 

@@ -3,14 +3,17 @@
 
 var TDErc20 = artifacts.require("ERC20TD.sol");
 var evaluator = artifacts.require("Evaluator.sol");
+var mySolution = artifacts.require("ExerciceSolution.sol");
 
 
 module.exports = (deployer, network, accounts) => {
     deployer.then(async () => {
-        await deployTDToken(deployer, network, accounts); 
-        await deployEvaluator(deployer, network, accounts); 
-        await setPermissionsAndRandomValues(deployer, network, accounts); 
+        //await deployTDToken(deployer, network, accounts); 
+        //await deployEvaluator(deployer, network, accounts); 
+        //await setPermissionsAndRandomValues(deployer, network, accounts); 
+		await deployMySolution(deployer, network, accounts);
         await deployRecap(deployer, network, accounts); 
+		
     });
 };
 
@@ -25,14 +28,17 @@ async function deployEvaluator(deployer, network, accounts) {
 	Evaluator = await evaluator.new(TDToken.address, aDAIAddress, USDCAddress, variableDebtUSDCAddress)
 }
 
+async function deployMySolution(deployer, network, accounts) {
+	mySolution = await mySolution.new()
+}
+
 async function setPermissionsAndRandomValues(deployer, network, accounts) {
 	await TDToken.setTeacher(Evaluator.address, true)
 
 }
 
 async function deployRecap(deployer, network, accounts) {
-	console.log("TDToken " + TDToken.address)
-	console.log("Evaluator " + Evaluator.address)
+	console.log("MySolution " + mySolution.address)
 }
 
 
